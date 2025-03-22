@@ -84,7 +84,7 @@ const completeUserProfile = async (req, res) => {
       address,
       latitude,
       longitude,
-      birth_date,
+      age,
       blood_type,
       last_donation_date,
       health_notes,
@@ -98,7 +98,7 @@ const completeUserProfile = async (req, res) => {
       !address ||
       latitude === undefined ||
       longitude === undefined ||
-      !birth_date ||
+      !age ||
       !blood_type ||
       !user_type
     ) {
@@ -116,7 +116,7 @@ const completeUserProfile = async (req, res) => {
           address,
           latitude,
           longitude,
-          birth_date,
+          age,
           blood_type,
           last_donation_date,
           health_notes,
