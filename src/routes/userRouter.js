@@ -56,7 +56,7 @@ const verifyOTP = async (req, res) => {
 
     return response.sendSuccess(res, {
       data,
-      user,
+      user: user || {},
       message:
         "Phone number verified successfully. Please complete your profile.",
     });
