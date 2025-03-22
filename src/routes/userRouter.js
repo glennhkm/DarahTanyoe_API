@@ -111,7 +111,6 @@ const completeUserProfile = async (req, res) => {
       .insert([
         {
           email: email,
-          password_hash: "managed_by_supabase",
           phone_number: user.phone,
           full_name,
           address,
