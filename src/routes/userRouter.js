@@ -19,7 +19,7 @@ const signInWithPhone = async (req, res) => {
       return response.sendBadRequest(res, error.message);
     }
 
-    return response.sendSuccess( res, {
+    return response.sendSuccess(res, {
       session: data.session,
       message: "Successfully sent OTP to phone number",
     });
@@ -51,7 +51,7 @@ const verifyOTP = async (req, res) => {
       .maybeSingle();
 
     if (userError) {
-      return response.sendBadRequest(res, userError.message );
+      return response.sendBadRequest(res, userError.message);
     }
 
     return response.sendSuccess(res, {
@@ -66,21 +66,21 @@ const verifyOTP = async (req, res) => {
   }
 };
 
-
 const completeUserProfile = async (req, res) => {
   try {
-    const {
-      data: { user },
-      error: userError,
-    } = await supabase.auth.getUser();
+    // const {
+    //   data: { user },
+    //   error: userError,
+    // } = await supabase.auth.getUser();
 
-    if (userError || !user) {
-      return response.sendUnauthorized(res, "Authentication required");
-    }
+    // if (userError || !user) {
+    //   return response.sendUnauthorized(res, "Authentication required");
+    // }
 
     const {
       email,
       full_name,
+      phone_number,
       address,
       latitude,
       longitude,
@@ -105,17 +105,15 @@ const completeUserProfile = async (req, res) => {
       return response.sendBadRequest(res, "Missing required fields");
     }
 
-
     const { data, error } = await supabase
       .from("users")
       .insert([
         {
           email: email,
-          phone_number: user.phone,
+          phone_number,
           full_name,
           address,
-          latitude,
-          longitude,
+          location: `SRID=4326;POINT(${longitude} ${latitude})`,
           age,
           blood_type,
           last_donation_date,
@@ -127,6 +125,26 @@ const completeUserProfile = async (req, res) => {
         },
       ])
       .select();
+    // const { data, error } = await supabase
+    //   .from("users")
+    //   .insert([
+    //     {
+    //       email: email,
+    //       phone_number: user.phone,
+    //       full_name,
+    //       address,
+    //       location: `SRID=4326;POINT(${longitude} ${latitude})`,
+    //       age,
+    //       blood_type,
+    //       last_donation_date,
+    //       health_notes,
+    //       total_points: 0,
+    //       user_type,
+    //       profile_picture,
+    //       updated_at: new Date(),
+    //     },
+    //   ])
+    //   .select();
 
     if (error) {
       console.error("Error creating user profile:", error);

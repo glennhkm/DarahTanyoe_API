@@ -2,7 +2,8 @@ import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import userRouter from './routes/userRouter.js';
-import bloodReqRouter from './routes/bloodReq.js';
+import bloodReqRouter from './routes/bloodReqRouter.js';
+import partnerRouter from './routes/partnerRouter.js';
 
 dotenv.config();
 
@@ -15,6 +16,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use('/users', userRouter);
 app.use('/bloodReq', bloodReqRouter);
+app.use('/partners', partnerRouter);
 
 app.get('/', (req, res) => {
   res.send('Welcome to the DarahTanyoe API');
