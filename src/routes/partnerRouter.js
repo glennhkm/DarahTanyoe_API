@@ -93,7 +93,6 @@ const validateRequest = async (req, res) => {
       isValidate = isValidate === "true";
     }
 
-    // 1️⃣ Ambil data request + latitude & longitude dari partners dalam satu query
     const { data: requestData, error: requestError } = await supabase
       .from("blood_requests")
       .select("id, isValidate, partner_id, partners(latitude, longitude)")
@@ -127,7 +126,6 @@ const validateRequest = async (req, res) => {
       console.log(`📢 Sending notification to ${user.email}...`);
     });
 
-    // 4️⃣ Update validasi permintaan darah
     const { data, error } = await supabase
       .from("blood_requests")
       .update({ isValidate })
