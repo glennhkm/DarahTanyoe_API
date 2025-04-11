@@ -1,5 +1,5 @@
 {
-  "name": "darahtanyoe_api",
+  "name": "gtf_api",
   "version": "1.0.0",
   "main": "src/server.js",
   "type": "module",
@@ -14,8 +14,11 @@
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
+    "jsonwebtoken": "^9.0.2",
     "luxon": "^3.5.0",
+    "node-cron": "^3.0.3",
     "nodemon": "^3.1.9",
+    "twilio": "^5.5.1",
     "vercel": "^41.4.1"
   }
 }

@@ -2,8 +2,11 @@ import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import userRouter from './routes/userRouter.js';
+// import userRouter from './routes/tesuser.js';
 import bloodReqRouter from './routes/bloodReqRouter.js';
 import partnerRouter from './routes/partnerRouter.js';
+import bloodDonorRouter from './routes/bloodDonorRouter.js';
+import notificationRouter from './routes/notificationRouter.js';
 
 dotenv.config();
 
@@ -17,6 +20,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/users', userRouter);
 app.use('/bloodReq', bloodReqRouter);
 app.use('/partners', partnerRouter);
+app.use('/donor', bloodDonorRouter);
+app.use('/notification', notificationRouter);
 
 app.get('/', (req, res) => {
   res.send('Welcome to the DarahTanyoe API');
