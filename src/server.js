@@ -2,7 +2,6 @@ import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import userRouter from './routes/userRouter.js';
-// import userRouter from './routes/tesuser.js';
 import bloodReqRouter from './routes/bloodReqRouter.js';
 import partnerRouter from './routes/partnerRouter.js';
 import bloodDonorRouter from './routes/bloodDonorRouter.js';

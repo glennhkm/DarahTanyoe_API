@@ -101,80 +101,80 @@ const confirmRequest = async (req, res) => {
     }
 
     // Mengirim Notifikasi WhatsApp ke Setiap User
-    // await Promise.all(
-    //   nearbyUsers.map(async (user) => {
-    //     try {
-    //       //   const waPayload = {
-    //       //     data: {
-    //       //       body_variables: [
-    //       //         user.full_name,
-    //       //         patient_name,
-    //       //         phone_number,
-    //       //         blood_type,
-    //       //         name,
-    //       //       ],
-    //       //     },
-    //       //     recipients: [
-    //       //       {
-    //       //         whatsapp_number: user.phone_number,
-    //       //         first_name: user.full_name,
-    //       //         replace: false,
-    //       //       },
-    //       //     ],
-    //       //   };
-    //       const waPayload = {
-    //         messaging_product: "whatsapp",
-    //         to: user.phone_number,
-    //         type: "template",
-    //         template: {
-    //           name: "darahtanyoe_permintaan_terdekat",
-    //           language: {
-    //             code: "en",
-    //           },
-    //           components: [
-    //             {
-    //               type: "body",
-    //               parameters: [
-    //                 { type: "text", text: user.full_name },
-    //                 { type: "text", text: patient_name },
-    //                 { type: "text", text: phone_number },
-    //                 { type: "text", text: blood_type },
-    //                 { type: "text", text: name },
-    //               ],
-    //             },
-    //           ],
-    //         },
-    //       };
+    await Promise.all(
+      nearbyUsers.map(async (user) => {
+        try {
+          //   const waPayload = {
+          //     data: {
+          //       body_variables: [
+          //         user.full_name,
+          //         patient_name,
+          //         phone_number,
+          //         blood_type,
+          //         name,
+          //       ],
+          //     },
+          //     recipients: [
+          //       {
+          //         whatsapp_number: user.phone_number,
+          //         first_name: user.full_name,
+          //         replace: false,
+          //       },
+          //     ],
+          //   };
+          const waPayload = {
+            messaging_product: "whatsapp",
+            to: user.phone_number,
+            type: "template",
+            template: {
+              name: "darahtanyoe_permintaan_terdekat",
+              language: {
+                code: "en",
+              },
+              components: [
+                {
+                  type: "body",
+                  parameters: [
+                    { type: "text", text: user.full_name },
+                    { type: "text", text: patient_name },
+                    { type: "text", text: phone_number },
+                    { type: "text", text: blood_type },
+                    { type: "text", text: name },
+                  ],
+                },
+              ],
+            },
+          };
 
-    //       //   const waResponse = await axios.post(
-    //       //     "https://app.wanotifier.com/api/v1/notifications/bK4BD75Ybe?key=I4E2g6TmwOEymmWdKk5DKsrXW3NRdO",
-    //       //     waPayload
-    //       //   );
-    //       const waResponse = await axios.post(
-    //         `https://graph.facebook.com/${fb_ver}/${fb_phone}/messages`,
-    //         waPayload,
-    //         {
-    //           headers: {
-    //             Authorization: `Bearer ${fb_access_token}`,
-    //             "Content-Type": "application/json",
-    //           },
-    //         }
-    //       );
+          //   const waResponse = await axios.post(
+          //     "https://app.wanotifier.com/api/v1/notifications/bK4BD75Ybe?key=I4E2g6TmwOEymmWdKk5DKsrXW3NRdO",
+          //     waPayload
+          //   );
+          const waResponse = await axios.post(
+            `https://graph.facebook.com/${fb_ver}/${fb_phone}/messages`,
+            waPayload,
+            {
+              headers: {
+                Authorization: `Bearer ${fb_access_token}`,
+                "Content-Type": "application/json",
+              },
+            }
+          );
           
 
-    //       console.log(
-    //         `✅ WhatsApp notification sent to ${user.phone_number}:`,
-    //         waResponse.data
-    //       );
-    //       // console.log(`📢 WhatsApp notification sent to ${user.phone_number}:`, waResponse.data);
-    //     } catch (waError) {
-    //       console.error(
-    //         `❌ Error sending WhatsApp to ${user.phone_number}:`,
-    //         waError.message
-    //       );
-    //     }
-    //   })
-    // );
+          console.log(
+            `✅ WhatsApp notification sent to ${user.phone_number}:`,
+            waResponse.data
+          );
+          // console.log(`📢 WhatsApp notification sent to ${user.phone_number}:`, waResponse.data);
+        } catch (waError) {
+          console.error(
+            `❌ Error sending WhatsApp to ${user.phone_number}:`,
+            waError.message
+          );
+        }
+      })
+    );
 
     // Menyimpan Notifikasi dalam Database
     const notifications = nearbyUsers.map((user) => ({
