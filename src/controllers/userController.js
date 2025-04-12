@@ -206,6 +206,34 @@ const verifyOTP = async (req, res) => {
 
 export { signInWithPhone, verifyOTP };
 
+const getUserPoints = async (req, res) => {
+  const { userId } = req.params;
+  try {
+    const { data, error } = await supabase
+      .from("users")
+      .select("total_points")
+      .eq("id", userId)
+      .single();
+
+    if (error) {
+      console.error("Error fetching user points:", error);
+      return response.sendInternalError(res, "Failed to fetch user points");
+    }
+
+    if (!data) {
+      return response.sendNotFound(res, "User not found");
+    }
+
+    return response.sendSuccess(res, {
+      total_points: data.total_points,
+    });
+  }
+  catch (error) {
+    console.error("Error fetching user points:", error);
+    return response.sendInternalError(res, "An unexpected error occurred");
+  }    
+}
+
 const completeUserProfile = async (req, res) => {
   try {
     // Validasi autentikasi
@@ -361,4 +389,5 @@ export default {
   verifyOTP,
   completeUserProfile,
   signInWithWeb,
+  getUserPoints,
 };
