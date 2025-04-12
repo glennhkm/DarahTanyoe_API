@@ -7,6 +7,6 @@ userRouter.post("/daftar", userController.completeUserProfile);
 userRouter.post("/masuk", userController.signInWithPhone);
 userRouter.post("/masuk-web", userController.signInWithWeb);
 userRouter.post("/verifyOTP", userController.verifyOTP);
-userRouter.post("/poin/:userId", userController.getUserPoints);
+userRouter.get("/poin/:userId", userController.getUserPoints);
 
 export default userRouter;
