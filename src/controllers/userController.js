@@ -121,6 +121,7 @@ const verifyOTP = async (req, res) => {
 
     if (fetchError || !otpRecord) {
       console.error("Error fetching OTP record:", fetchError);
+      await supa.from("otp_records").delete().eq("phone", phone);
       return response.sendBadRequest(res, "OTP not requested or expired");
     }
 
