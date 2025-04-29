@@ -112,7 +112,7 @@ const verifyOTP = async (req, res) => {
   }
 
   try {
-    phone = phone.replace("+", "");
+    phone = phone.replace("+", "").trim();
     // Fetch OTP record from Supabase using supa client
     const { data: otpRecord, error: fetchError } = await supabase
       .from("otp_records")
