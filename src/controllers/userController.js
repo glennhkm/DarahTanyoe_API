@@ -113,13 +113,14 @@ const verifyOTP = async (req, res) => {
 
   try {
     // Fetch OTP record from Supabase using supa client
-    const { data: otpRecord, error: fetchError } = await supa
+    const { data: otpRecord, error: fetchError } = await supabase
       .from("otp_records")
       .select("*")
       .eq("phone", phone)
       .single();
 
     if (fetchError || !otpRecord) {
+      console.error("Error fetching OTP record:", fetchError);
       return response.sendBadRequest(res, "OTP not requested or expired");
     }
 
