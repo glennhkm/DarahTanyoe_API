@@ -102,7 +102,7 @@ const signInWithPhone = async (req, res) => {
 };
 
 const verifyOTP = async (req, res) => {
-  const { phone, token } = req.body;
+  let { phone, token } = req.body;
 
   if (!phone || !token) {
     return response.sendBadRequest(
