@@ -22,7 +22,8 @@ const generateOTP = () => {
 const sendWhatsAppOTP = async (phone, otp) => {
   try {
     const message = `Kode OTP Anda adalah: ${otp}. Kode ini berlaku selama 5 menit.`;
-    const urlAPI = "https://app.wanotifier.com/api/v1/notifications/9EbMPvrONH?key=NDF9Dct0JIjVnOxT7QyRhRBATObe5y";
+    const urlAPI =
+      "https://app.wanotifier.com/api/v1/notifications/9EbMPvrONH?key=NDF9Dct0JIjVnOxT7QyRhRBATObe5y";
 
     const payload = {
       data: {
@@ -47,7 +48,6 @@ const sendWhatsAppOTP = async (phone, otp) => {
     throw new Error("Failed to send OTP via WhatsApp");
   }
 };
-
 
 const signInWithPhone = async (req, res) => {
   const { phone } = req.body;
@@ -119,9 +119,11 @@ const verifyOTP = async (req, res) => {
       .eq("phone", phone)
       .single();
 
+    console.log("OTP Record:", otpRecord);
+    console.log("phone:", phone);
     if (fetchError || !otpRecord) {
       console.error("Error fetching OTP record:", fetchError);
-      await supa.from("otp_records").delete().eq("phone", phone);
+      // await supa.from("otp_records").delete().eq("phone", phone);
       return response.sendBadRequest(res, "OTP not requested or expired");
     }
 
@@ -229,12 +231,11 @@ const getUserPoints = async (req, res) => {
     return response.sendSuccess(res, {
       total_points: data.total_points,
     });
-  }
-  catch (error) {
+  } catch (error) {
     console.error("Error fetching user points:", error);
     return response.sendInternalError(res, "An unexpected error occurred");
-  }    
-}
+  }
+};
 
 const completeUserProfile = async (req, res) => {
   try {
